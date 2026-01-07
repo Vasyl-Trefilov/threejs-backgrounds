@@ -2,7 +2,7 @@
 <html lang="en">
   <head>
     <meta charset="utf-8" />
-    <title>Three.js Background Switcher</title>
+    <title>Three backgrounds</title>
     <style>
       body {
         margin: 0;
@@ -13,51 +13,23 @@
         position: fixed;
         top: 10px;
         left: 10px;
-        z-index: 1000;
+        z-index: 10;
       }
 
       button {
         display: block;
         margin-bottom: 6px;
-        padding: 8px 12px;
-        cursor: pointer;
       }
     </style>
   </head>
   <body>
     <div id="controls">
-      <button data-bg="starsAndRays.js">Stars & Rays</button>
-      <button data-bg="connectedDots.js">Connected Dots</button>
-      <button data-bg="digitalSea.js">Digital Sea</button>
-      <button data-bg="tunnels.js">Tunnels</button>
+      <button data-bg="starsAndRays">Stars</button>
+      <button data-bg="connectedDots">Dots</button>
+      <button data-bg="digitalSea">Sea</button>
+      <button data-bg="tunnels">Tunnels</button>
     </div>
 
-    <script>
-      let currentScript = null;
-
-      function loadBackground(file) {
-        if (currentScript) {
-          currentScript.remove();
-          currentScript = null;
-        }
-        document.querySelectorAll("canvas").forEach(c => c.remove());
-
-        const script = document.createElement("script");
-        script.type = "module";
-        script.src = "/" + file;
-
-        document.body.appendChild(script);
-        currentScript = script;
-      }
-
-      document.querySelectorAll("button[data-bg]").forEach(button => {
-        button.addEventListener("click", () => {
-          loadBackground(button.dataset.bg);
-        });
-      });
-
-      loadBackground("starsAndRays.js");
-    </script>
+    <script type="module" src="/main.js"></script>
   </body>
 </html>
-
