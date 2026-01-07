@@ -14,6 +14,7 @@ const renderer = new THREE.WebGLRenderer();
 renderer.setSize(window.innerWidth, window.innerHeight);
 document.body.appendChild(renderer.domElement);
 const controls = new OrbitControls(camera, renderer.domElement);
+
 const geometry1 = new THREE.SphereGeometry(5.01, 24, 12);
 const wireframe1 = new THREE.WireframeGeometry(geometry1);
 const line1 = new THREE.LineSegments(wireframe1);

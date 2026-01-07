@@ -127,12 +127,10 @@ function updateBackground(t) {
   const themeA = themes[themeNames[i0]];
   const themeB = themes[themeNames[i1]];
 
-  // background gradient (lerp between numbers)
   const colorA = new THREE.Color(themeA.background);
   const colorB = new THREE.Color(themeB.background);
   bgColor.lerpColors(colorA, colorB, localT);
 
-  // fog color
   const fogA = new THREE.Color(themeA.fog.color);
   const fogB = new THREE.Color(themeB.fog.color);
   fogColor.lerpColors(fogA, fogB, localT);
