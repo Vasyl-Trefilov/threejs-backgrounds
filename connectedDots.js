@@ -1,5 +1,9 @@
 import * as THREE from "three";
 
+let scene, camera, renderer;
+let animationId;
+
+export function init() {
 const scene = new THREE.Scene();
 scene.background = new THREE.Color(0x050008);
 
@@ -132,9 +136,18 @@ function animate() {
 
   renderer.render(scene, camera);
 }
-renderer.setAnimationLoop(animate);
-window.addEventListener("resize", () => {
+
+  renderer.setAnimationLoop(animate);
+  window.addEventListener("resize", onResize);
+}
+export function dispose() {
+  renderer.setAnimationLoop(null);
+  renderer.dispose();
+  window.removeEventListener("resize", onResize);
+}
+
+function onResize() {
   camera.aspect = window.innerWidth / window.innerHeight;
   camera.updateProjectionMatrix();
   renderer.setSize(window.innerWidth, window.innerHeight);
-});
+}
