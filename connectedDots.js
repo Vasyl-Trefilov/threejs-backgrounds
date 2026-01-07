@@ -151,3 +151,6 @@ function onResize() {
   camera.updateProjectionMatrix();
   renderer.setSize(window.innerWidth, window.innerHeight);
 }
+window.onerror = function(message, source, lineno, colno, error) {
+  alert(`Error: ${message} at ${lineno}:${colno}`);
+};
