@@ -1,20 +1,17 @@
 {
-  "name": "threeremebmer",
+  "name": "threeremember",
   "version": "1.0.0",
-  "description": "",
-  "main": "index.js",
-  "scripts": {
-    "test": "echo \"Error: no test specified\" && exit 1"
-  },
-  "keywords": [],
-  "author": "",
-  "license": "ISC",
+  "private": true,
   "type": "module",
+  "scripts": {
+    "dev": "vite",
+    "build": "vite build",
+    "preview": "vite preview"
+  },
   "dependencies": {
-    "three": "^0.182.0",
-    "threejs-animations": "^1.2.5"
+    "three": "^0.182.0"
   },
   "devDependencies": {
-    "vite": "^7.3.0"
+    "vite": "^5.0.0"
   }
 }
