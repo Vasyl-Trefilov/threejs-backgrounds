@@ -1,11 +1,12 @@
 let currentBg = null;
 
 async function loadBackground(name) {
-  if (currentBg?.dispose) {
+  if (currentBg && typeof currentBg.dispose === "function") {
     currentBg.dispose();
   }
 
-  document.querySelectorAll("canvas").forEach(c => c.remove())
+  document.querySelectorAll("canvas").forEach(c => c.remove());
+
   const module = await import(`./${name}.js`);
   currentBg = module;
 
@@ -13,8 +14,8 @@ async function loadBackground(name) {
 }
 
 document.querySelectorAll("button[data-bg]").forEach(btn => {
-  btn.addEventListener("click", () => {
-    loadBackground(btn.dataset.bg);
+  btn.addEventListener("click", function () {
+    loadBackground(this.dataset.bg);
   });
 });
 
