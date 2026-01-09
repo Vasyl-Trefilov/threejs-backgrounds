@@ -140,9 +140,10 @@ export function init() {
 }
 
 export function dispose() {
+  if (!renderer) return;
   renderer.setAnimationLoop(null);
   renderer.dispose();
-  renderer.domElement.remove();
+  renderer.domElement?.remove();
   window.removeEventListener("resize", onResize);
 }
 
