@@ -1,10 +1,14 @@
 import * as THREE from "three";
+
+let scene, camera, renderer;
+
 import { OrbitControls } from "three/addons/controls/OrbitControls.js";
 
-const scene = new THREE.Scene();
+export function init() {
+scene = new THREE.Scene();
 scene.background = new THREE.Color(0x050008);
 
-const camera = new THREE.PerspectiveCamera(
+camera = new THREE.PerspectiveCamera(
   75,
   window.innerWidth / window.innerHeight,
   0.1,
@@ -13,7 +17,7 @@ const camera = new THREE.PerspectiveCamera(
 
 camera.position.y = 5;
 
-const renderer = new THREE.WebGLRenderer({ antialias: true });
+renderer = new THREE.WebGLRenderer({ antialias: true });
 renderer.setSize(window.innerWidth, window.innerHeight);
 document.body.appendChild(renderer.domElement);
 
@@ -119,9 +123,22 @@ function animate() {
 }
 
 renderer.setAnimationLoop(animate);
+  window.addEventListener("resize", onResize);
+}
 
-window.addEventListener("resize", () => {
+export function dispose() {
+  if (!renderer) return;
+  renderer.setAnimationLoop(null);
+  renderer.dispose();
+  renderer.domElement?.remove();
+  window.removeEventListener("resize", onResize);
+}
+
+function onResize() {
   camera.aspect = window.innerWidth / window.innerHeight;
   camera.updateProjectionMatrix();
   renderer.setSize(window.innerWidth, window.innerHeight);
-});
+}
+window.onerror = function(message, source, lineno, colno, error) {
+  alert(`Error: ${message} at ${lineno}:${colno}`);
+};

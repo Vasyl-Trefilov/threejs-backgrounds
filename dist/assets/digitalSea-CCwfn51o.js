@@ -1,21 +1,4 @@
-import * as THREE from "three";
-
-const scene = new THREE.Scene();
-scene.background = new THREE.Color(0x050008);
-
-const camera = new THREE.PerspectiveCamera(
-  45,
-  window.innerWidth / window.innerHeight,
-  0.1,
-  1000
-);
-camera.position.set(0, 5, 10);
-camera.lookAt(0, 0, 3);
-const renderer = new THREE.WebGLRenderer({ antialias: true });
-renderer.setSize(window.innerWidth, window.innerHeight);
-document.body.appendChild(renderer.domElement);
-
-const vertexShader = `
+import{S as m,C as v,P as d,W as p,e as y,D as f,V as w,f as h,M as g}from"./three.module-B3sf-EN6.js";let n,t,e;function C(){n=new m,n.background=new v(327688),t=new d(45,window.innerWidth/window.innerHeight,.1,1e3),t.position.set(0,5,10),t.lookAt(0,0,3),e=new p({antialias:!0}),e.setSize(window.innerWidth,window.innerHeight),document.body.appendChild(e.domElement);const o=`
   uniform float time;
   uniform float uPulseTime;
   uniform float uNoiseScale;
@@ -108,9 +91,7 @@ const vertexShader = `
     
     gl_Position = projectionMatrix * modelViewMatrix * vec4(pos, 1.0);
   }
-`;
-
-const fragmentShader = `
+`,c=`
   varying float vHeight;
   uniform vec3 uPeakColor;
   uniform vec3 uTroughColor;
@@ -125,49 +106,4 @@ const fragmentShader = `
     
     gl_FragColor = vec4(color, 1.0);
   }
-`;
-
-const material = new THREE.ShaderMaterial({
-  uniforms: {
-    time: { value: 0 },
-    uPulseTime: { value: 0 },
-    uNoiseScale: { value: 0.5 },
-    uWaveHeight: { value: 1.0 },
-    uPulseAmplitude: { value: 0.3 },
-    uPulseCenter: { value: new THREE.Vector2(0, 0) },
-    uPeakColor: { value: new THREE.Color(0x00ffff) },
-    uTroughColor: { value: new THREE.Color(0x220066) },
-    uColorIntensity: { value: 1.5 },
-  },
-  vertexShader: vertexShader,
-  fragmentShader: fragmentShader,
-  wireframe: true,
-  transparent: true,
-  side: THREE.DoubleSide,
-});
-const geometry = new THREE.PlaneGeometry(20, 15, 100, 100);
-
-const wireframe = new THREE.Mesh(geometry, material);
-scene.add(wireframe);
-wireframe.rotateX(Math.PI / 2);
-let time = 0;
-let pulseTime = 0;
-
-function animate() {
-  time += 0.005;
-  pulseTime += 0.01;
-
-  material.uniforms.time.value = time;
-  material.uniforms.uPulseTime.value = pulseTime;
-
-  material.uniforms.uWaveHeight.value = 1.0 + Math.sin(time * 0.5) * 0.3;
-
-  renderer.render(scene, camera);
-  //   requestAnimationFrame(animate);
-}
-renderer.setAnimationLoop(animate);
-window.addEventListener("resize", () => {
-  camera.aspect = window.innerWidth / window.innerHeight;
-  camera.updateProjectionMatrix();
-  renderer.setSize(window.innerWidth, window.innerHeight);
-});
+`,i=new y({uniforms:{time:{value:0},uPulseTime:{value:0},uNoiseScale:{value:.5},uWaveHeight:{value:1},uPulseAmplitude:{value:.3},uPulseCenter:{value:new w(0,0)},uPeakColor:{value:new v(65535)},uTroughColor:{value:new v(2228326)},uColorIntensity:{value:1.5}},vertexShader:o,fragmentShader:c,wireframe:!0,transparent:!0,side:f}),r=new h(20,15,100,100),a=new g(r,i);n.add(a),a.rotateX(Math.PI/2);let s=0,l=0;function x(){s+=.005,l+=.01,i.uniforms.time.value=s,i.uniforms.uPulseTime.value=l,i.uniforms.uWaveHeight.value=1+Math.sin(s*.5)*.3,e.render(n,t)}e.setAnimationLoop(x),window.addEventListener("resize",u)}function P(){var o;e&&(e.setAnimationLoop(null),e.dispose(),(o=e.domElement)==null||o.remove(),window.removeEventListener("resize",u))}function u(){t.aspect=window.innerWidth/window.innerHeight,t.updateProjectionMatrix(),e.setSize(window.innerWidth,window.innerHeight)}window.onerror=function(o,c,i,r,a){alert(`Error: ${o} at ${i}:${r}`)};export{P as dispose,C as init};
