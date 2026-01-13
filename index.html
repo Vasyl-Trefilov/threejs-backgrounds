@@ -4,145 +4,131 @@
     <meta charset="utf-8" />
     <title>Three backgrounds</title>
     <style>
-     body {
-  margin: 0;
-  overflow: hidden;
-  font-family: 'Inter', 'Segoe UI', system-ui, sans-serif;
-  background: #0b0d12;
-}
+      body {
+        margin: 0;
+        overflow: hidden;
+        font-family: "Inter", "Segoe UI", system-ui, sans-serif;
+        background: #0b0d12;
+      }
 
-#controls {
-  position: fixed;
-  top: 20px;
-  left: -240px;
-  width: 200px;
-  padding: 14px;
-  z-index: 10;
-  border-radius: 18px;
-  background: rgba(15, 18, 28, 0.75);
-  backdrop-filter: blur(14px);
-  box-shadow:
-    0 20px 40px rgba(0, 0, 0, 0.6),
-    inset 0 0 0 1px rgba(255, 255, 255, 0.05);
-  transition: left 0.35s cubic-bezier(0.4, 0, 0.2, 1);
-}
+      #controls {
+        position: fixed;
+        top: 20px;
+        left: -240px;
+        width: 200px;
+        padding: 14px;
+        z-index: 10;
+        border-radius: 18px;
+        background: rgba(15, 18, 28, 0.75);
+        backdrop-filter: blur(14px);
+        box-shadow: 0 20px 40px rgba(0, 0, 0, 0.6),
+          inset 0 0 0 1px rgba(255, 255, 255, 0.05);
+        transition: left 0.35s cubic-bezier(0.4, 0, 0.2, 1);
+      }
 
-#controls.open {
-  left: 20px;
-}
+      #controls.open {
+        left: 20px;
+      }
 
-#toggle-controls {
-  position: fixed;
-  top: 24px;
-  left: 20px;
-  z-index: 11;
-  width: 42px;
-  height: 42px;
-  border-radius: 14px;
-  border: none;
-  background: linear-gradient(145deg, #1a1f33, #0f1220);
-  color: #9ad0ff;
-  font-size: 18px;
-  cursor: pointer;
-  box-shadow:
-    0 10px 20px rgba(0, 0, 0, 0.6),
-    inset 0 0 0 1px rgba(255, 255, 255, 0.06);
-  transition: all 0.3s ease;
-}
+      #toggle-controls {
+        position: fixed;
+        top: 24px;
+        left: 20px;
+        z-index: 11;
+        width: 42px;
+        height: 42px;
+        border-radius: 14px;
+        border: none;
+        background: linear-gradient(145deg, #1a1f33, #0f1220);
+        color: #9ad0ff;
+        font-size: 18px;
+        cursor: pointer;
+        box-shadow: 0 10px 20px rgba(0, 0, 0, 0.6),
+          inset 0 0 0 1px rgba(255, 255, 255, 0.06);
+        transition: all 0.3s ease;
+      }
 
-#toggle-controls:hover {
-  color: #ffffff;
-  box-shadow:
-    0 0 18px rgba(120, 180, 255, 0.6),
-    0 12px 24px rgba(0, 0, 0, 0.7);
-}
+      #toggle-controls:hover {
+        color: #ffffff;
+        box-shadow: 0 0 18px rgba(120, 180, 255, 0.6),
+          0 12px 24px rgba(0, 0, 0, 0.7);
+      }
 
-#controls.open ~ #toggle-controls {
-  left: 240px;
-}
+      #controls.open ~ #toggle-controls {
+        left: 240px;
+      }
 
-button {
-  width: 100%;
-  margin-bottom: 10px;
-  padding: 12px 16px;
-  border-radius: 14px;
-  border: none;
-  background: linear-gradient(
-    145deg,
-    rgba(30, 36, 60, 0.9),
-    rgba(18, 22, 38, 0.9)
-  );
-  color: #cfd9ff;
-  font-size: 14px;
-  font-weight: 500;
-  letter-spacing: 0.3px;
-  cursor: pointer;
-  text-align: left;
-  position: relative;
-  overflow: hidden;
+      button {
+        width: 100%;
+        margin-bottom: 10px;
+        padding: 12px 16px;
+        border-radius: 14px;
+        border: none;
+        background: linear-gradient(
+          145deg,
+          rgba(30, 36, 60, 0.9),
+          rgba(18, 22, 38, 0.9)
+        );
+        color: #cfd9ff;
+        font-size: 14px;
+        font-weight: 500;
+        letter-spacing: 0.3px;
+        cursor: pointer;
+        text-align: left;
+        position: relative;
+        overflow: hidden;
 
-  box-shadow:
-    0 8px 18px rgba(0, 0, 0, 0.6),
-    inset 0 0 0 1px rgba(255, 255, 255, 0.05);
+        box-shadow: 0 8px 18px rgba(0, 0, 0, 0.6),
+          inset 0 0 0 1px rgba(255, 255, 255, 0.05);
 
-  transition:
-    transform 0.25s ease,
-    box-shadow 0.25s ease,
-    color 0.25s ease;
-}
+        transition: transform 0.25s ease, box-shadow 0.25s ease,
+          color 0.25s ease;
+      }
 
-button::before {
-  content: "";
-  position: absolute;
-  inset: 0;
-  background: linear-gradient(
-    120deg,
-    transparent,
-    rgba(120, 180, 255, 0.35),
-    transparent
-  );
-  opacity: 0;
-  transition: opacity 0.3s ease;
-}
+      button::before {
+        content: "";
+        position: absolute;
+        inset: 0;
+        background: linear-gradient(
+          120deg,
+          transparent,
+          rgba(120, 180, 255, 0.35),
+          transparent
+        );
+        opacity: 0;
+        transition: opacity 0.3s ease;
+      }
 
-button:hover {
-  color: #ffffff;
-  transform: translateY(-2px);
-  box-shadow:
-    0 0 22px rgba(120, 180, 255, 0.45),
-    0 14px 30px rgba(0, 0, 0, 0.75);
-}
+      button:hover {
+        color: #ffffff;
+        transform: translateY(-2px);
+        box-shadow: 0 0 22px rgba(120, 180, 255, 0.45),
+          0 14px 30px rgba(0, 0, 0, 0.75);
+      }
 
-button:hover::before {
-  opacity: 1;
-}
+      button:hover::before {
+        opacity: 1;
+      }
 
-button:active {
-  transform: translateY(0);
-  box-shadow:
-    0 6px 14px rgba(0, 0, 0, 0.6);
-}
+      button:active {
+        transform: translateY(0);
+        box-shadow: 0 6px 14px rgba(0, 0, 0, 0.6);
+      }
 
-button.active {
-  color: #ffffff;
-  background: linear-gradient(
-    145deg,
-    #243cff,
-    #1a2abf
-  );
-  box-shadow:
-    0 0 30px rgba(70, 120, 255, 0.8);
-}
-
+      button.active {
+        color: #ffffff;
+        background: linear-gradient(145deg, #243cff, #1a2abf);
+        box-shadow: 0 0 30px rgba(70, 120, 255, 0.8);
+      }
     </style>
     <script type="importmap">
-{
-  "imports": {
-    "three": "https://cdn.jsdelivr.net/npm/three@0.182.0/build/three.module.js",
-    "three/addons/": "https://cdn.jsdelivr.net/npm/three@0.182.0/examples/jsm/"
-  }
-}
-</script>
+      {
+        "imports": {
+          "three": "https://cdn.jsdelivr.net/npm/three@0.182.0/build/three.module.js",
+          "three/addons/": "https://cdn.jsdelivr.net/npm/three@0.182.0/examples/jsm/"
+        }
+      }
+    </script>
   </head>
   <body>
     <div id="controls">
@@ -150,6 +136,7 @@ button.active {
       <button data-bg="digitalSea">Digital Sea</button>
       <button data-bg="starsAndRays">Stars and Rays</button>
       <button data-bg="tunnels">Tunnels</button>
+      <button data-bg="blackHoleSim">Black Hole</button>
     </div>
     <button id="toggle-controls">&gt;</button>
 
