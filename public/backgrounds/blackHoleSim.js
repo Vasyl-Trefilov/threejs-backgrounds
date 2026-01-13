@@ -87,39 +87,27 @@ export function init() {
   pos.needsUpdate = true;
   plane.position.y = -100;
 
-
-  // --- ФУНКЦИЯ СОЗДАНИЯ ЛУЧА СВЕТА ---
   function createLightRay(startPos, direction, rs) {
     const points = [];
     let currentPos = startPos.clone();
-    
-    // Вектор скорости (свет всегда движется со скоростью C)
+  
     let velocity = direction.clone().normalize().multiplyScalar(1.5); 
     
-    const maxSteps = 400; // Длина луча
+    const maxSteps = 400;
     
     for (let i = 0; i < maxSteps; i++) {
       points.push(currentPos.clone());
 
       const dist = currentPos.distanceTo(bhParams.position);
 
-      // Если луч коснулся горизонта событий — он поглощен
       if (dist < rs) break;
-
-      // Упрощенное отклонение ОТО: ускорение зависит от 1/r^3 для искривления векторов
-      // Направлено к центру черной дыры
       const gravityDir = new THREE.Vector3().subVectors(bhParams.position, currentPos).normalize();
       
-      // Сила искривления (усиленная для визуализации на сетке)
       const bendingForce = (3 * rs) / (dist * dist); 
-      
-      // Изменяем направление скорости
       velocity.add(gravityDir.multiplyScalar(bendingForce));
-      velocity.normalize().multiplyScalar(1.5); // Поддерживаем постоянную скорость света
+      velocity.normalize().multiplyScalar(1.5);
 
       currentPos.add(velocity);
-
-      // Останавливаем, если луч улетел далеко за пределы
       if (currentPos.length() > 200) break;
     }
 
@@ -132,17 +120,16 @@ export function init() {
     return new THREE.Line(geometry, material);
   }
 
-  // --- ДОБАВЛЯЕМ ПУЧОК ЛУЧЕЙ ---
   const raysGroup = new THREE.Group();
   
-  // Создаем 20 лучей, летящих параллельно мимо черной дыры
+ 
   for (let i = -40; i <= 40; i += 4) {
-    const startX = -140; // Точка старта слева
-    const startY = 0;    // Высота (на уровне центра ЧД)
-    const startZ = i;    // Расстояние "мимо" ЧД
+    const startX = -140;
+    const startY = 0;   
+    const startZ = i;  
     
     const startPos = new THREE.Vector3(startX, startY, startZ);
-    const direction = new THREE.Vector3(1, 0, 0); // Летят слева направо
+    const direction = new THREE.Vector3(1, 0, 0); 
     
     const ray = createLightRay(startPos, direction, rsScene);
     raysGroup.add(ray);
@@ -150,7 +137,7 @@ export function init() {
 
   scene.add(raysGroup);
 
-  raysGroup.position.y = -100;
+  raysGroup.position.y = 0;
 
   const starGeometry = new THREE.BufferGeometry();
   const starCount = 6000;
